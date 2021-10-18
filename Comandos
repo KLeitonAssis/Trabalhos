@@ -1,0 +1,44 @@
+create table cliente_BD(
+  cd_cli number(4) constraint Cliente_BD_cd_cli_pk primary key,
+  nm_cliente varchar2(20) constraint Cliente_BD_nm_cliente_nn not null,
+  ds_cidade_cli varchar2(20),
+  ds_uf_cli varchar2(2)
+);
+
+insert into cliente_bd values(0001,'Jose da Silva','Araraquara','SP');
+insert into cliente_bd(nm_cliente, cd_cli, ds_cidade_cli, ds_uf_cli) values('Jorge Souza',0002,'Curitiba','PR');
+
+select * from cliente_bd;
+
+drop table cliente_bd;
+drop table nota_fiscal_BD;
+
+alter table cliente_bd
+add(ie_fisica_juridica char(1));
+
+alter table cliente_bd
+modify(ie_fisica_juridica not null);
+
+alter table cliente_bd
+modify(ds_cidade_cli char(3));
+
+alter table cliente_bd
+add(constraint cli_bd_ie_fisica_juridica_ck check(ie_fisica_juridica in('F','J','N')));
+
+alter table cliente_bd
+disable constraint cli_bd_ie_fisica_juridica_ck;
+
+alter table cliente_bd
+enable constraint cli_bd_ie_fisica_juridica_ck;
+
+alter table cliente_bd
+drop constraint Cliente_BD_nm_cliente_nn;
+
+select * from user_constraints
+where table_name = 'CLIENTE_BD';
+
+select * from user_cons_columns
+where table_name = 'CLIENTE_BD';
+
+delete from cliente_bd
+  where cd_cli =73;
